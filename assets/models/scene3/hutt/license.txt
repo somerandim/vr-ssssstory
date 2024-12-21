@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hutt in Forest Lowpoly Diorama
+* source:	https://sketchfab.com/3d-models/hutt-in-forest-lowpoly-diorama-0d5577019e87455ab3e63c42b5302e06
+* author:	Felix.Barthel (https://sketchfab.com/Felix.Barthel)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hutt in Forest Lowpoly Diorama" (https://sketchfab.com/3d-models/hutt-in-forest-lowpoly-diorama-0d5577019e87455ab3e63c42b5302e06) by Felix.Barthel (https://sketchfab.com/Felix.Barthel) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

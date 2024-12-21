@@ -1,0 +1,520 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1440,
+      "max": [
+        1.140158772468567,
+        0.4772563874721527,
+        0.12286827713251114
+      ],
+      "min": [
+        -1.1401593685150146,
+        -0.4810751974582672,
+        -0.12286829948425293
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 17280,
+      "componentType": 5126,
+      "count": 1440,
+      "max": [
+        0.9920773506164551,
+        0.9435222148895264,
+        0.9435239434242249
+      ],
+      "min": [
+        -0.9920774102210999,
+        -0.9435222148895264,
+        -0.9435240626335144
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 1440,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 34560,
+      "componentType": 5126,
+      "count": 846,
+      "max": [
+        0.4470585286617279,
+        0.8839296698570251,
+        0.7952784299850464
+      ],
+      "min": [
+        -0.4472494125366211,
+        -0.8843654990196228,
+        -2.7354965209960938
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 44712,
+      "componentType": 5126,
+      "count": 846,
+      "max": [
+        1.0,
+        0.9798411130905151,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.9778963327407837,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 5760,
+      "componentType": 5125,
+      "count": 1272,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 54864,
+      "componentType": 5126,
+      "count": 274,
+      "max": [
+        0.5489686727523804,
+        1.0869054794311523,
+        0.5148664712905884
+      ],
+      "min": [
+        -0.549159586429596,
+        -1.0873416662216187,
+        0.14620637893676758
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 58152,
+      "componentType": 5126,
+      "count": 274,
+      "max": [
+        1.0,
+        0.9798418283462524,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.977891206741333,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 10848,
+      "componentType": 5125,
+      "count": 420,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 61440,
+      "componentType": 5126,
+      "count": 114,
+      "max": [
+        0.33159658312797546,
+        0.47322747111320496,
+        0.7952784299850464
+      ],
+      "min": [
+        -0.2987474203109741,
+        -0.7614186406135559,
+        -2.7354965209960938
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 62808,
+      "componentType": 5126,
+      "count": 114,
+      "max": [
+        0.43752264976501465,
+        0.8888109922409058,
+        0.9999995827674866
+      ],
+      "min": [
+        -0.2652631402015686,
+        -0.28109830617904663,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 12528,
+      "componentType": 5125,
+      "count": 180,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 64176,
+      "componentType": 5126,
+      "count": 111,
+      "max": [
+        0.25911739468574524,
+        0.8469502329826355,
+        11.168351173400879
+      ],
+      "min": [
+        -0.25930845737457275,
+        -0.8491171002388,
+        0.556014358997345
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 65508,
+      "componentType": 5126,
+      "count": 111,
+      "max": [
+        0.9999712705612183,
+        0.9951227903366089,
+        0.28180646896362305
+      ],
+      "min": [
+        -0.9999712705612183,
+        -0.933319628238678,
+        -0.025242021307349205
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 13248,
+      "componentType": 5125,
+      "count": 162,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "MartinDobbins (https://sketchfab.com/MartinDobbins)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/fantasy-low-poly-sword-04f46577b774490c8ff3bfb70c1c1b4c",
+      "title": "Fantasy low poly sword"
+    },
+    "generator": "Sketchfab-12.67.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 13896,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 66840,
+      "byteOffset": 13896,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 80736,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Blue",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0439587,
+          0.074368,
+          0.8,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9731015304
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Brown",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.190178,
+          0.0846289,
+          0.0384269,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9768046286
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "yellow",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.814041,
+          0.716463,
+          0.0196085,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.8214557927
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "grey",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.8211145618
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "dark",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.342383,
+          0.342383,
+          0.342383,
+          1.0
+        ],
+        "metallicFactor": 0.3614710366,
+        "roughnessFactor": 0.9234408338
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Gems_Blue_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Sword_Brown_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Sword_yellow_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Sword_grey_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9
+          },
+          "indices": 11,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Sword_dark_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12
+          },
+          "indices": 14,
+          "material": 4,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "30c30b2b1bd646e6b5af305fc3b4b7cc.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        53.55084991455078,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -1.629206793918314e-05,
+        -99.99999999999868,
+        0.0,
+        0.0,
+        99.99999999999868,
+        -1.629206793918314e-05,
+        0.0,
+        -0.861901044845581,
+        147.07672119140625,
+        0.5230126976966858,
+        1.0
+      ],
+      "name": "Gems"
+    },
+    {
+      "mesh": 0,
+      "name": "Gems_Blue_0"
+    },
+    {
+      "children": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "matrix": [
+        100.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.629206793918314e-05,
+        -99.99999999999868,
+        0.0,
+        0.0,
+        99.99999999999868,
+        -1.629206793918314e-05,
+        0.0,
+        0.009543854743242264,
+        114.06980895996094,
+        0.15980446338653564,
+        1.0
+      ],
+      "name": "Sword"
+    },
+    {
+      "mesh": 1,
+      "name": "Sword_Brown_0"
+    },
+    {
+      "mesh": 2,
+      "name": "Sword_yellow_0"
+    },
+    {
+      "mesh": 3,
+      "name": "Sword_grey_0"
+    },
+    {
+      "mesh": 4,
+      "name": "Sword_dark_0"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

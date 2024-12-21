@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene 1 - Little Red Riding Hood</title>
+    <!-- Include A-Frame Library -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="js/gradientsky.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/feiss/aframe-gradient-sky@master/dist/aframe-gradient-sky.min.js"></script>
+
+
+  </head>
+  <body>
+    
+    <!-- A-Frame Scene -->
+    <a-scene>
+      
+      
+
+
+      <a-entity gltf-model="assets/sky/scene.gltf" scale="1 1 1" position="0 0 0"></a-entity>
+
+      <!-- Forest Environment -->
+      <a-entity 
+      gltf-model="assets/models/scene3/hutt/scene.gltf" 
+      position="0 -5 0" 
+      scale="0.01  0.01  0.01"
+      >
+    </a-entity>
+   
+
+     <!-- Camera -->
+      <a-entity 
+      id="camera" 
+      camera 
+      position="-30 13.6 3.6" 
+      cursor
+      look-controls 
+      wasd-controls="acceleration: 100; fly: true">
+      
+      <!-- Text Display as HUD -->
+      <a-entity 
+        id="positionDisplay" 
+        position="0 -0.5 -1" 
+        text="value: Position: 0, 0, 0; color: white; align: center; width: 2">
+      </a-entity>
+    </a-entity>
+      
+    <a-light type="directional" position="10 100 10" intensity="0.5" color="#ffffff"></a-light>
+    <a-light type="ambient" intensity="0.5" color="#ffffff"></a-light>
+
+
+
+
+      
+    </a-scene>
+    <script>
+        // Wait for the scene to load
+        document.addEventListener('DOMContentLoaded', () => {
+          // Get references to the camera and text display
+          const camera = document.querySelector('#camera');
+          const positionDisplay = document.querySelector('#positionDisplay');
+  
+          // Update the text with the user's position
+          setInterval(() => {
+            const position = camera.object3D.position;
+            const x = position.x.toFixed(2);
+            const y = position.y.toFixed(2);
+            const z = position.z.toFixed(2);
+  
+            // Update the position display text
+            positionDisplay.setAttribute('text', `value: Position: ${x}, ${y}, ${z}`);
+          }, 100); // Update every 100ms
+        });
+
+
+
+            const model = document.querySelector('[gltf-model]');
+    model.addEventListener('model-loaded', () => {
+        const animations = model.getObject3D('mesh').animations;
+        console.log('Available animations:', animations.map(a => a.name));
+    });
+          </script>
+  </body>
+</html>

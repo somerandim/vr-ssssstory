@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!--Background music-->
+      <a-sound
+        id="backgroundSound"  
+        src="assets\audio\Aria Math.mp3" 
+        autoplay="true" 
+        loop="true" 
+        volume="3" 
+        muted="true">>
+      </a-sound>
+      <!-- Background -->
+      <a-entity gltf-model="assets/sky/scene.gltf" scale="2 2 2" position="0 0 0"></a-entity>
+      <!-- Camera -->
+      <a-entity 
+      id="camera" 
+      camera  
+      position="1.88 3.2 1.53" 
+      cursor
+      look-controls 
+      wasd-controls="acceleration: 100; fly: true">
+      
+      <!-- Text Display as HUD -->
+      <a-entity 
+        id="positionDisplay" 
+        position="0 -0.5 -1" 
+        text="value: Position: 0, 0, 0; color: white; align: center; width: 2">
+      </a-entity>
+      <a-cursor 
+        color="white" 
+        fuse="true" 
+        fuse-timeout="1000">
+      </a-cursor>
+    </a-entity>
+
+      <!-- Grouped Islands -->
+      <a-entity id="islandGroup" position="5 3.2 2" rotation="0 -40 0">
+        <a-entity 
+          gltf-model="assets/models/main/holiday_island/scene.gltf" 
+          scale="0.01 0.01 0.01" 
+          rotation="0 120 0" 
+          position="-40 0.13 -14.01">
+        </a-entity>
+        <a-entity 
+          gltf-model="assets/models/main/low_poly_island/scene.gltf" 
+          scale="0.8 0.8 0.8" 
+          rotation="0 110 0" 
+          position="-34.59 5.87 -35.23">
+        </a-entity>
+        <a-entity 
+          gltf-model="assets/models/main/medieval_fantasy_tavern/scene.gltf" 
+          scale="1 1 1" 
+          rotation="0 270 0" 
+          position="-20.39 -4.48 -30.62">
+        </a-entity>
+        <a-entity 
+          gltf-model="assets/models/main/lowpoly_island/scene.gltf" 
+          scale="0.05 0.05 0.05" 
+          rotation="0 -150 0" 
+          position="-27.85 -5.00 1.61">
+        </a-entity>
+      </a-entity>
+
+
+      <a-entity 
+      id="exitSword"
+        gltf-model="assets/models/main/fantasy_low_poly_sword/scene.gltf" 
+        scale="0.0008 0.0008 0.0008" 
+        rotation="90 68 0" 
+        position="1.5 2.2 -2.2" 
+        visible="false">
+      </a-entity>
+
+      <a-entity 
+        id="playSword"
+        gltf-model="assets/models/main/fantasy_low_poly_sword/scene.gltf" 
+        scale="0.0008 0.0008 0.0008" 
+        rotation="90 68 0" 
+        position="1.5 3.2 -2.5" 
+        visible="false">
+      </a-entity>
+
+      <!--Knight-->
+      <a-entity 
+          gltf-model="assets/models/main/knight.glb" 
+          scale="0.004 0.004 0.004"
+          rotation="0 -60 0" 
+          position="4 2 -0.75">
+        </a-entity>
+
+
+      
+      <!--Options-->
+      <a-entity id="options" position="2.41 1.7 1.15" rotation="0 -20 0">
+      <!-- Title -->
+      <a-entity text="value: Experience The Tale !; align: center; color: #fff; width: 9; font: https://cdn.aframe.io/fonts/mozillavr.fnt" position="0.1 3 -3.3"></a-entity>
+
+      <!-- Play Button -->
+      <a-entity id="playButton" position="0 1.5 -3" onclick="goToLibrary()">
+        <a-box width="2" height="0.7" depth="0.1" color="#ffffff" opacity="0.2"></a-box>
+        <a-entity 
+          text="value: Play; color: white; align: center; width: 9; font: https://cdn.aframe.io/fonts/mozillavr.fnt" 
+          position="0 0.2 0.1">
+        </a-entity>
+      </a-entity>
+
+     <!-- Exit Button -->
+      <a-entity id="exitButton" position="0 0.5 -3" onclick="closeApp()">
+        <a-box width="2" height="0.7" depth="0.1" color="#ffffff" opacity="0.2"></a-box>
+        <a-entity 
+          text="value: Exit; color: white; align: center; width: 9; font: https://cdn.aframe.io/fonts/mozillavr.fnt" 
+          position="0 0.2 0.1">
+        </a-entity>
+      </a-entity>
+
+      <!-- Lighting -->
+      <a-light type="hemisphere" intensity="1" color="#ffffff" groundColor="#aaaaaa" position="12.22 45.84 49.39"></a-light>
+      <a-light type="directional" position="12.22 45.84 49.39" intensity="1" color="#ffffff" cast-shadow="true"></a-light>
+    </a-scene>
+    <script>
+        // Wait for the scene to load
+        document.addEventListener('DOMContentLoaded', () => {
+          // Get references to the camera and text display
+          const camera = document.querySelector('#camera');
+          const positionDisplay = document.querySelector('#positionDisplay');
+  
+          // Update the text with the user's position
+          setInterval(() => {
+            const position = camera.object3D.position;
+            const x = position.x.toFixed(2);
+            const y = position.y.toFixed(2);
+            const z = position.z.toFixed(2);
+  
+            // Update the position display text
+            positionDisplay.setAttribute('text', `value: Position: ${x}, ${y}, ${z}`);
+          }, 100); // Update every 100ms
+        });
+
+
+
+
+            document.addEventListener('DOMContentLoaded', () => {
+            // Get references to the swords and buttons
+            const playSword = document.querySelector('#playSword');
+            const exitSword = document.querySelector('#exitSword');
+            const playButton = document.querySelector('#playButton');
+            const exitButton = document.querySelector('#exitButton');
+
+            // Function to show the sword
+            const showSword = (sword) => {
+              sword.setAttribute('visible', 'true');
+            };
+
+          // Function to hide the sword
+          const hideSword = (sword) => {
+            sword.setAttribute('visible', 'false');
+          };
+
+  // Add hover events to the Play button
+  playButton.addEventListener('mouseenter', () => showSword(playSword));
+  playButton.addEventListener('mouseleave', () => hideSword(playSword));
+
+  // Add hover events to the Exit button
+  exitButton.addEventListener('mouseenter', () => showSword(exitSword));
+  exitButton.addEventListener('mouseleave', () => hideSword(exitSword));
+});
+
+  //Unmute the audio
+  document.addEventListener('DOMContentLoaded', () => {
+      const backgroundSound = document.querySelector('#backgroundSound');
+      setTimeout(() => {
+        backgroundSound.components.sound.el.components.sound.stopSound();
+        backgroundSound.components.sound.el.setAttribute('muted', 'false');
+        backgroundSound.components.sound.playSound();
+      }, 500); // Slight delay to unmute and start
+    });
+
+
+
+    //play button
+    function goToLibrary() {
+        window.location.href = "library.html";
+      }
+
+    //exit buttom
+    function closeApp() {
+        // For web apps, this works only for JavaScript-opened tabs or windows
+        window.close();
+      }
+
+    </script>
+  </body>
+</html>
