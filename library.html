@@ -25,26 +25,16 @@
     <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-    <script>
-      NAF.schemas.getComponentsOriginal = NAF.schemas.getComponents;
-      NAF.schemas.getComponents = (template) => {
-        if (!NAF.schemas.hasTemplate("#head-template")) {
-          NAF.schemas.add({
-            template: "#head-template",
-            components: ["position", "rotation", "player-info"],
-          });
 
-          NAF.schemas.add({
-            template: "#boxx",
-            components: ["position", "rotation", "scale"],
-          });
-        }
-        const components = NAF.schemas.getComponentsOriginal(template);
-        return components;
-      };
-    </script>
-    <script src="/js/nametag.js" type="text/javascript"></script>
-    <script src="/js/spawn-in-circle.js"></script>
+    <!-- GLTF Models and Assets -->
+    <a-asset-item
+      id="libraryModel"
+      src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/Library/cozy_reading_nook.glb"
+    ></a-asset-item>
+    <a-asset-item
+      id="bookCover"
+      src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/images/cover.png"
+    ></a-asset-item>
 
     <style>
       #player-position {
@@ -64,63 +54,129 @@
   <body>
     <div id="player-position">Position: x: 0, y: 0, z: 0</div>
     <a-scene id="scene"
-  physics="debug: false; gravity: -9.8"
-  networked-scene="room: basic; debug: false; adapter: easyrtc;"
->
-  <!-- Floor -->
-  <a-plane
-    static-body
-    position="-6.96 -6 0"
-    material="color: red"
-    rotation="-90 0 0"
-    width="200"
-    height="200"
-    shadow="cast:true"
-    visible="false"
-  ></a-plane>
-
-  <!-- Camera and Rig -->
-  <a-entity
-    id="rig"
-    kinematic-body="radius:0.4"
-    oculus-thumbstick-controls="acceleration: 17; fly: false; rigSelector: #rig"
-    position="-4.80 -4.50 46.88"
-  >
-    <a-entity
-      id="player"
-      mixin="physics-hands"
-      camera
-      position="0 1.4 0"
-      visible="true"
+      joystick
+      physics="debug: false; gravity: -9.8"
+      networked-scene="room: basic; debug: false; adapter: easyrtc;"
     >
-      <a-cursor color="#CCC" raycaster="objects: .clickable"></a-cursor>
-    </a-entity>
+       <!-- Floor -->
+       <a-plane
+         static-body
+         position="-6.96 -6 0"
+         material="color: red "
+         rotation="-90 0 0"
+         width="200"
+         height="200"
+         shadow="cast:true"
+         visible="false"
+       ></a-plane>
 
-    <!-- Hand Controllers -->
-    <a-entity
-      class="controller"
-      id="rhand"
-      mixin="physics-hands"
-      networked-hand-controls="hand: right"
-      raycaster="objects: .hittable; far: 0.4"
-      line="color: #000000"
-      oculus-thumbstick-controls
-    ></a-entity>
+       <!-- Walls -->
+       <a-plane
+         static-body
+         position="1.07 -4.5 2.01"
+         material="color: red "
+         width="200"
+         height="200"
+         shadow="cast:true"
+         visible="false"
+       ></a-plane>
+       <a-plane
+         static-body
+         position="-22.95 -4.5 19.79"
+         material="color: red "
+         rotation="0 -90 0"
+         width="200"
+         height="200"
+         shadow="cast:true"
+         visible="false"
+       ></a-plane>
+       <a-plane
+         static-body
+         position="14.31 -4.51 28.33"
+         material="color: red "
+         rotation="0 -90 0"
+         width="200"
+         height="200"
+         shadow="cast:true"
+         visible="false"
+       ></a-plane>
+       <a-plane
+         static-body
+         position="-10.17 -4.5 53.44"
+         material="color: red "
+         width="200"
+         height="200"
+         shadow="cast:true"
+         visible="false"
+       ></a-plane>
 
-    <a-entity
-      class="controller"
-      id="lhand"
-      mixin="physics-hands"
-      networked-hand-controls="hand: left"
-      raycaster="objects: .hittable; far: 0.4"
-      line="color: #000000"
-      oculus-thumbstick-controls
-    ></a-entity>
-  </a-entity>
+       <!-- Camera and rig -->
+       <a-entity
+         id="rig"
+         kinematic-body="radius:0.4"
+         wasd-controls="acceleration: 200"
+         look-controls
+         position="-4.80 -4.50 46.88"
+       >
+         <a-entity
+           id="player"
+           mixin="physics-hands"
+           camera
+           position="0 1.4 0"
+           visible="true"
+         >
+           <a-cursor color="#CCC" raycaster="objects: .clickable"></a-cursor>
+         </a-entity>
 
-  <!-- Lighting and Other Elements -->
-  <a-light type="hemisphere" intensity="1" color="#ffffff" groundColor="#aaaaaa" position="12.22 45.84 49.39"></a-light>
-</a-scene>
+         <!-- Right hand controller -->
+         <a-entity
+           class="controller"
+           id="rhand"
+           mixin="physics-hands"
+           networked-hand-controls="hand: right"
+           raycaster="objects: .hittable; far: 0.4"
+           line="color: #000000"
+           oculus-thumbstick-controls
+         ></a-entity>
+
+         <!-- Left hand controller -->
+         <a-entity
+           class="controller"
+           id="lhand"
+           mixin="physics-hands"
+           networked-hand-controls="hand: left"
+           raycaster="objects: .hittable; far: 0.4"
+           line="color: #000000"
+           oculus-thumbstick-controls
+           menu-visibility
+         ></a-entity>
+       </a-entity>
+
+       <!-- Library Model -->
+       <a-entity
+         gltf-model="#libraryModel"
+         scale="0.1 0.1 0.1"
+         rotation="0 0 0"
+         position="0 0 0"
+       ></a-entity>
+
+       <!-- Book Cover -->
+       <a-image
+         id="bookFrame"
+         class="clickable"
+         cursor-listener
+         src="#bookCover"
+         width="4"
+         height="5"
+         position="-4.87 -5.5 53.20"
+         event-set__mouseenter="color: #cccccc"
+         event-set__mouseleave="color: #ffffff"
+       ></a-image>
+
+       <!-- Lighting -->
+       <a-light type="hemisphere" intensity="1" color="#ffffff" groundColor="#aaaaaa" position="12.22 45.84 49.39"></a-light>
+       <a-light type="directional" position="12.22 45.84 49.39" intensity="1" color="#ffffff" cast-shadow="true"></a-light>
+    </a-scene>
 
     <script>
       // Update position display
