@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>backtester</title>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+      
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+    <!-- event-set requirements -->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+
+    <!-- Using right thumbstick to move around -->
+    <script src="/js/movement.js" type="text/javascript"></script>
+
+    <!-- Superhands & Physics -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    <script src="/js/superhands.js" type="text/javascript"></script>
+
+    <!-- Menu Scripts -->
+    <script src="/js/menu_func.js" type="text/javascript"></script>
+
+    <!-- Joystick -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.8.2/nipplejs.min.js"></script>
+    <script src="/js/joystick.js" type="text/javascript"></script>
+    
+    <script src="/js/intersection-visual.js" type="text/javascript"></script>
+    
+    <!-- Networked Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
+    <script src="/easyrtc/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script>
+      NAF.schemas.getComponentsOriginal = NAF.schemas.getComponents;
+      NAF.schemas.getComponents = (template) => {
+        if (!NAF.schemas.hasTemplate("#head-template")) {
+          NAF.schemas.add({
+            template: "#head-template",
+            components: ["position", "rotation", "player-info"],
+          });
+
+          NAF.schemas.add({
+            template: "#boxx",
+            components: ["position", "rotation", "scale"],
+          });
+        }
+        const components = NAF.schemas.getComponentsOriginal(template);
+        return components;
+      };
+    </script>
+    <script src="/js/nametag.js" type="text/javascript"></script>
+    <script src="/js/spawn-in-circle.js"></script>
+
+    <!--Poition styling(To be removed before launch)-->
+    <style>
+      /* Styling for the position display */
+      #player-position {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="player-position">Position: x: 0, y: 0, z: 0</div>
+    <a-scene id="scene"
+      joystick
+      physics="debug: false; gravity: -9.8"
+      networked-scene="room: basic; debug: false; adapter: easyrtc;"
+        >
+      
+      <!--Asset Items-->
+      <a-assets timeout="1000">
+       
+      <!-- Mixins are for superhands control -->
+      <!-- All-interactions for assets to be scaled/moved
+            Physics hands for the controllers on oculus devices-->
+      <a-mixin
+          id="all-interactions"
+          dynamic-body
+          hoverable
+          grabbable
+          stretchable
+          draggable
+          droppable
+          event-set__hoveron="_event: hover-start; material.opacity: 0.5; transparent: true"
+          event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+        ></a-mixin>
+
+      <a-mixin
+        id="physics-hands"
+        physics-collider
+        phase-shift
+        collision-filter="collisionForces: false"
+        static-body="shape: sphere; sphereRadius: 0.02"
+        super-hands="colliderEvent: collisions;
+                       colliderEventProperty: els;
+                       colliderEndEvent: collisions;
+                       colliderEndEventProperty: clearedEls;"
+      ></a-mixin>
+      
+      
+       <!-- Templates -->
+        <!-- Templates are used for Networked -->
+        <template id="rig-template">
+          <a-entity></a-entity>
+        </template>
+
+        <template id="head-template">
+          <a-entity class="avatar" player-info>
+            <a-sphere class="head" scale="0.2 0.22 0.2"></a-sphere>
+            <a-entity class="face" position="0 0.05 0">
+              <a-sphere
+                class="eye"
+                color="white"
+                position="0.06 0.05 -0.16"
+                scale="0.04 0.04 0.04"
+              >
+                <a-sphere
+                  class="pupil"
+                  color="black"
+                  position="0 0 -1"
+                  scale="0.2 0.2 0.2"
+                ></a-sphere>
+              </a-sphere>
+              <a-sphere
+                class="eye"
+                color="white"
+                position="-0.06 0.05 -0.16"
+                scale="0.04 0.04 0.04"
+              >
+                <a-sphere
+                  class="pupil"
+                  color="black"
+                  position="0 0 -1"
+                  scale="0.2 0.2 0.2"
+                ></a-sphere>
+              </a-sphere>
+            </a-entity>
+            <a-text
+              class="nametag"
+              value="?"
+              rotation="0 180 0"
+              position=".25 -.35 0"
+              side="double"
+              scale=".5 .5 .5"
+              look-at="#rig"
+            ></a-text>
+          </a-entity>
+        </template>
+
+        <template id="boxx">
+          <a-entity></a-entity>
+        </template> 
+        
+      
+      </a-assets>
+
+     
+        <!--Objects-->
+        <a-sphere
+        scale="0.2 0.2 0.2"
+        position="0 2 0"
+        networked="template:#boxx;attachTemplateToLocal:false;"
+        material="color: red"
+        mixin="all-interactions"
+      ></a-sphere>
+      
+        
+      <!--inveisble wall-->
+      <a-box
+  static-body
+  position="4 1.25 -1"
+  material="color: green"
+  depth="8"
+  width="0.25"
+  height="2.5"
+  shadow="cast:true"
+  visible="false"
+></a-box>
+ 
+
+        <a-box
+          static-body
+          position="0.25 1.25 -4.875"
+          material="color: green "
+          depth="0.25"
+          width="7.25"
+          height="2.5"
+          shadow="cast:true"
+        ></a-box>
+
+        <a-box
+          static-body
+          position="-0.6 1.25 3.125"
+          material="color: green "
+          depth="0.25"
+          width="6"
+          height="2.5"
+          shadow="cast:true"
+        ></a-box>
+        
+       
+
+        <!--Ceilings-->
+        <a-box
+          static-body
+          position="0.25 2.625 -1"
+          material="color: black "
+          depth="22"
+          width="22"
+          height="0.25"
+          shadow="cast:true"
+        ></a-box>
+
+        <!--Floor-->
+        <a-plane
+          static-body
+          position="0 0.1 0"
+          material="color: red "
+          rotation="-90 0 0"
+          width="30"
+          height="30"
+          shadow="cast:true"
+        ></a-plane>
+
+
+      
+      <!--floor-->
+      <a-plane
+          static-body
+          position="-6.96 -6 0"
+          material="color: red "
+          rotation="-90 0 0"
+          width="200"
+          height="200"
+          shadow="cast:true"
+          visible="false"
+        ></a-plane>
+
+      <!-- Camera & Hands -->
+      <!-- Rig is where the camera and the controllers are built in.
+           To change the camera position/attributes change the rig's -->
+      <a-entity
+        id="rig"
+        kinematic-body="radius:0.4"
+        wasd-controls="acceleration: 20"
+        look-controls
+        position="0 -0.3 0"
+      >
+        <a-entity
+          id="player"
+          mixin="physics-hands"
+          camera
+          position="0 1.4 0"
+          visible="true"
+        >
+
+        </a-entity>
+
+        <!-- Right hand controller -->
+        <a-entity
+          class="controller"
+          id="rhand"
+          mixin="physics-hands"
+          networked-hand-controls="hand: right"
+          raycaster="objects: .hittable; far: 0.4"
+          line="color: #000000"
+          oculus-thumbstick-controls
+        ></a-entity>
+
+        <!-- Left hand controller -->
+        <a-entity
+          class="controller"
+          id="lhand"
+          mixin="physics-hands"
+          networked-hand-controls="hand: left"
+          raycaster="objects: .hittable; far: 0.4"
+          line="color: #000000"
+          oculus-thumbstick-controls
+          menu-visibility
+        >
+          <!-- Menu pane -->
+          <a-plane
+            id="menu"
+            position="0 0.15 0.05"
+            rotation="-90 0 0"
+            width="0.5"
+            height="0.1"
+            color="#cccccc"
+            material="opacity:1; shader: flat"
+            visible="false"
+          >
+            <a-text
+              id="arrow_left"
+              value="<"
+              position="-0.24 0.01 0"
+              color="#373737"
+              scale="0.5 0.9 1"
+            ></a-text>
+            <a-text
+              id="arrow_right"
+              value=">"
+              position="0.16 0.01 0"
+              color="#373737"
+              scale="0.5 0.9 1"
+            ></a-text>
+            <a-entity id="asset_background">
+              <a-plane
+                position="0 0 0.001"
+                width="0.07"
+                height="0.07"
+                material="opacity:0.3; shader: flat"
+                color="#E0DF4B"
+              ></a-plane>
+              <a-plane
+                position="0.12 0 0.001"
+                width="0.07"
+                height="0.07"
+                color="#373737"
+              ></a-plane>
+              <a-plane
+                position="-0.12 0 0.001"
+                width="0.07"
+                height="0.07"
+                color="#373737"
+              ></a-plane>
+            </a-entity>
+
+            <a-entity id="assets_menu"> </a-entity>
+          </a-plane>
+        </a-entity>
+      </a-entity>
+
+
+    </a-scene>
+    
+    <!--Poition update(To be removed before launch)-->
+     <script>
+    // Wait for the scene to load
+    document.addEventListener('DOMContentLoaded', () => {
+          // Get references to the camera and text display
+          const camera = document.querySelector('#camera');
+          const positionDisplay = document.querySelector('#positionDisplay');
+  
+          // Update the text with the user's position
+          setInterval(() => {
+            const position = camera.object3D.position;
+            const x = position.x.toFixed(2);
+            const y = position.y.toFixed(2);
+            const z = position.z.toFixed(2);
+  
+            // Update the position display text
+            positionDisplay.setAttribute('text', value, Position, $,{x}, $,{y}, $,{z});
+          }, 100); // Update every 100ms
+        });
+   </script>   
+  </body>
+</html>

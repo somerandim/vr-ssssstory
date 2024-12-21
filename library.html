@@ -64,188 +64,63 @@
   <body>
     <div id="player-position">Position: x: 0, y: 0, z: 0</div>
     <a-scene id="scene"
-      joystick
-      physics="debug: false; gravity: -9.8"
-      networked-scene="room: basic; debug: false; adapter: easyrtc;"
+  physics="debug: false; gravity: -9.8"
+  networked-scene="room: basic; debug: false; adapter: easyrtc;"
+>
+  <!-- Floor -->
+  <a-plane
+    static-body
+    position="-6.96 -6 0"
+    material="color: red"
+    rotation="-90 0 0"
+    width="200"
+    height="200"
+    shadow="cast:true"
+    visible="false"
+  ></a-plane>
+
+  <!-- Camera and Rig -->
+  <a-entity
+    id="rig"
+    kinematic-body="radius:0.4"
+    oculus-thumbstick-controls="acceleration: 17; fly: false; rigSelector: #rig"
+    position="-4.80 -4.50 46.88"
+  >
+    <a-entity
+      id="player"
+      mixin="physics-hands"
+      camera
+      position="0 1.4 0"
+      visible="true"
     >
-       <!--floor-->
-       <a-plane
-         static-body
-         position="-6.96 -6 0"
-         material="color: red "
-         rotation="-90 0 0"
-         width="200"
-         height="200"
-         shadow="cast:true"
-         visible="false"
-       ></a-plane>
+      <a-cursor color="#CCC" raycaster="objects: .clickable"></a-cursor>
+    </a-entity>
 
-       <!--Wall-->
-       <a-plane
-         static-body
-         position="1.07 -4.5 2.01"
-         material="color: red "
-         width="200"
-         height="200"
-         shadow="cast:true"
-         visible="false"
-       ></a-plane>
+    <!-- Hand Controllers -->
+    <a-entity
+      class="controller"
+      id="rhand"
+      mixin="physics-hands"
+      networked-hand-controls="hand: right"
+      raycaster="objects: .hittable; far: 0.4"
+      line="color: #000000"
+      oculus-thumbstick-controls
+    ></a-entity>
 
-       <!--Wall-->
-       <a-plane
-         static-body
-         position="-22.95 -4.5 19.79"
-         material="color: red "
-         rotation="0 -90 0"
-         width="200"
-         height="200"
-         shadow="cast:true"
-         visible="false"
-       ></a-plane>
+    <a-entity
+      class="controller"
+      id="lhand"
+      mixin="physics-hands"
+      networked-hand-controls="hand: left"
+      raycaster="objects: .hittable; far: 0.4"
+      line="color: #000000"
+      oculus-thumbstick-controls
+    ></a-entity>
+  </a-entity>
 
-       <!--Wall-->
-       <a-plane
-         static-body
-         position="14.31 -4.51 28.33"
-         material="color: red "
-         rotation="0 -90 0"
-         width="200"
-         height="200"
-         shadow="cast:true"
-         visible="false"
-       ></a-plane>
-
-       <!--Wall-->
-       <a-plane
-         static-body
-         position="-10.17 -4.5 53.44"
-         material="color: red "
-         width="200"
-         height="200"
-         shadow="cast:true"
-         visible="false"
-       ></a-plane>
-
-       <!-- Camera and rig -->
-       <a-entity
-         id="rig"
-         kinematic-body="radius:0.4"
-         wasd-controls="acceleration: 200"
-         look-controls
-         position="-4.80 -4.50 46.88"
-       >
-         <a-entity
-           id="player"
-           mixin="physics-hands"
-           camera
-           position="0 1.4 0"
-           visible="true"
-         >
-           <!-- Add the cursor here -->
-           <!-- Give the cursor a raycaster that targets clickable objects -->
-           <a-cursor color="#CCC" raycaster="objects: .clickable"></a-cursor>
-         </a-entity>
-
-         <!-- Right hand controller -->
-         <a-entity
-           class="controller"
-           id="rhand"
-           mixin="physics-hands"
-           networked-hand-controls="hand: right"
-           raycaster="objects: .hittable; far: 0.4"
-           line="color: #000000"
-           oculus-thumbstick-controls
-         ></a-entity>
-
-         <!-- Left hand controller -->
-         <a-entity
-           class="controller"
-           id="lhand"
-           mixin="physics-hands"
-           networked-hand-controls="hand: left"
-           raycaster="objects: .hittable; far: 0.4"
-           line="color: #000000"
-           oculus-thumbstick-controls
-           menu-visibility
-         >
-           <!-- Menu pane -->
-           <a-plane
-             id="menu"
-             position="0 0.15 0.05"
-             rotation="-90 0 0"
-             width="0.5"
-             height="0.1"
-             color="#cccccc"
-             material="opacity:1; shader: flat"
-             visible="false"
-           >
-             <a-text
-               id="arrow_left"
-               value="<"
-               position="-0.24 0.01 0"
-               color="#373737"
-               scale="0.5 0.9 1"
-             ></a-text>
-             <a-text
-               id="arrow_right"
-               value=">"
-               position="0.16 0.01 0"
-               color="#373737"
-               scale="0.5 0.9 1"
-             ></a-text>
-             <a-entity id="asset_background">
-               <a-plane
-                 position="0 0 0.001"
-                 width="0.07"
-                 height="0.07"
-                 material="opacity:0.3; shader: flat"
-                 color="#E0DF4B"
-               ></a-plane>
-               <a-plane
-                 position="0.12 0 0.001"
-                 width="0.07"
-                 height="0.07"
-                 color="#373737"
-               ></a-plane>
-               <a-plane
-                 position="-0.12 0 0.001"
-                 width="0.07"
-                 height="0.07"
-                 color="#373737"
-               ></a-plane>
-             </a-entity>
-
-             <a-entity id="assets_menu"> </a-entity>
-           </a-plane>
-         </a-entity>
-       </a-entity>
-
-       <a-entity 
-         gltf-model="assets\Library\cozy_reading_nook.glb" 
-         scale="0.1 0.1 0.1" 
-         rotation="0 0 0" 
-         position="0 0 0 "
-       ></a-entity>
-
-       <!-- Previously you had onclick="navigateToBook1()" on the parent entity, remove that 
-            and rely on the cursor event instead. Add class="clickable" and a listener component. -->
-            <a-image 
-            id="bookFrame"
-            class="clickable"
-            cursor-listener
-            src="assets/images/cover.png"
-            width="4"
-            height="5"
-            position="-4.87 -5.5 53.20"
-            event-set__mouseenter="color: #cccccc"
-            event-set__mouseleave="color: #ffffff"
-          ></a-image>
-          
-
-       <!-- Lighting -->
-       <a-light type="hemisphere" intensity="1" color="#ffffff" groundColor="#aaaaaa" position="12.22 45.84 49.39"></a-light>
-       <a-light type="directional" position="12.22 45.84 49.39" intensity="1" color="#ffffff" cast-shadow="true"></a-light>
-    </a-scene>
+  <!-- Lighting and Other Elements -->
+  <a-light type="hemisphere" intensity="1" color="#ffffff" groundColor="#aaaaaa" position="12.22 45.84 49.39"></a-light>
+</a-scene>
 
     <script>
       // Update position display
