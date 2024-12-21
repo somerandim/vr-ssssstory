@@ -2,6 +2,10 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <a-asset-item
+    id="sky"
+    src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/sky/scene.gltf"
+    ></a-asset-item>
   </head>
   <body>
     <a-scene>
@@ -15,7 +19,7 @@
         muted="true">>
       </a-sound>
       <!-- Background -->
-      <a-entity gltf-model="assets/sky/scene.gltf" scale="2 2 2" position="0 0 0"></a-entity>
+      <a-entity gltf-model="#sky" scale="2 2 2" position="0 0 0"></a-entity>
       <!-- Camera -->
       <a-entity 
       id="camera" 
