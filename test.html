@@ -367,7 +367,7 @@
             const z = position.z.toFixed(2);
   
             // Update the position display text
-            positionDisplay.setAttribute('text', value, Position, $,{x}, $,{y}, $,{z});
+            positionDisplay.setAttribute('text', `value: Position: ${x}, ${y}, ${z}`);
           }, 100); // Update every 100ms
         });
    </script>   
