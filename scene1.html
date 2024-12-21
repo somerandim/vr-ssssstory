@@ -60,6 +60,8 @@
         return components;
       };
     </script>
+
+    
     <script src="/js/nametag.js" type="text/javascript"></script>
     <script src="/js/spawn-in-circle.js"></script>
 
@@ -79,6 +81,14 @@
         z-index: 1000;
       }
     </style>
+
+<a-asset-item id="skyModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/sky/scene.gltf"></a-asset-item>
+<a-asset-item id="forestModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/forest/scene.gltf"></a-asset-item>
+<a-asset-item id="farmModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/farm.gltf"></a-asset-item>
+<a-asset-item id="redHoodModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/red_hood.glb"></a-asset-item>
+<a-asset-item id="motherModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/mother.glb"></a-asset-item>
+<a-asset-item id="wolfModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/wolf/scene.gltf"></a-asset-item>
+
   </head>
   <body>
     
@@ -99,44 +109,75 @@
         volume="50" 
       ></a-sound>
       
-      <a-entity gltf-model="assets/sky/scene.gltf" scale="1 1 1" position="0 0 0"></a-entity>
+     
 
       <!-- Forest Environment -->
+      <a-entity gltf-model="#skyModel" scale="1 1 1" position="0 0 0"></a-entity>
+
       <a-entity 
-        gltf-model="assets/models/forest/scene.gltf" 
+        gltf-model="#forestModel" 
         position="0 -5 0" 
         scale="0.6 0.6 0.6">
       </a-entity>
 
       <a-entity 
-        gltf-model="assets/models/farm.gltf" 
+        gltf-model="#farmModel" 
         position="4 -22 -7.29"
         rotation="0 270 0"  
         scale="0.15 0.15 0.15">
       </a-entity>
       
       <a-entity 
-        gltf-model="assets/models/little red riding/red_hood.glb" 
+        gltf-model="#redHoodModel" 
         position="-5.4 -21.7 -9.92"
         rotation="0 23 0" 
         scale="0.25 0.25 0.25">
       </a-entity>
 
       <a-entity 
-        gltf-model="assets/models/little red riding/mother.glb" 
+        gltf-model="#motherModel" 
         position="-4.51 -19.7 -8.36" 
         rotation="0 220 0" 
         scale="2 2 2">
       </a-entity>
 
-      <!-- Wolf -->
       <a-entity 
         id="model" 
-        gltf-model="assets/models/wolf/scene.gltf" 
+        gltf-model="#wolfModel" 
         position="1.8 -22 41.45"
         rotation="0 190 0"  
         scale="0.8 0.8 0.8"
         animation-mixer="clip: metarig|Idle;loop: repeat">
+      </a-entity>
+
+      <a-entity
+        id="camera"
+        camera
+        look-controls
+        wasd-controls="acceleration: 75"
+        position="0 1.4 0"
+        visible="true"
+      >
+        <a-entity
+          class="controller"
+          id="rhand"
+          mixin="physics-hands"
+          networked-hand-controls="hand: right"
+          raycaster="objects: .hittable; far: 0.4"
+          line="color: #000000"
+          oculus-thumbstick-controls
+        ></a-entity>
+
+        <a-entity
+          class="controller"
+          id="lhand"
+          mixin="physics-hands"
+          networked-hand-controls="hand: left"
+          raycaster="objects: .hittable; far: 0.4"
+          line="color: #000000"
+          oculus-thumbstick-controls
+          menu-visibility
+        ></a-entity>
       </a-entity>
 
       <!-- Camera -->
