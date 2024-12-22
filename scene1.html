@@ -6,10 +6,6 @@
     <title>Scene 1 - Little Red Riding Hood</title>
     <!-- Include A-Frame Library -->
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    
-    <!-- event-set requirements -->
-    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
 
     <!-- Using right thumbstick to move around -->
     <script src="/js/movement.js" type="text/javascript"></script>
@@ -18,56 +14,8 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
     <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
-    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
-    <script src="/js/superhands.js" type="text/javascript"></script>
 
-    <!-- Menu Scripts -->
-    <script src="/js/menu_func.js" type="text/javascript"></script>
-
-    <!-- Joystick -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.8.2/nipplejs.min.js"></script>
-    <script src="/js/joystick.js" type="text/javascript"></script>
-    
-    <script src="/js/intersection-visual.js" type="text/javascript"></script>
-    
-    <!-- Networked Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
-    <script src="/easyrtc/easyrtc.js"></script>
-    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-
-
-    <script src="js/gradientsky.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/feiss/aframe-gradient-sky@master/dist/aframe-gradient-sky.min.js"></script>
-    <script src="js/animation-mixer.js"></script>
-
-    <script>
-      NAF.schemas.getComponentsOriginal = NAF.schemas.getComponents;
-      NAF.schemas.getComponents = (template) => {
-        if (!NAF.schemas.hasTemplate("#head-template")) {
-          NAF.schemas.add({
-            template: "#head-template",
-            components: ["position", "rotation", "player-info"],
-          });
-
-          NAF.schemas.add({
-            template: "#boxx",
-            components: ["position", "rotation", "scale"],
-          });
-        }
-        const components = NAF.schemas.getComponentsOriginal(template);
-        return components;
-      };
-    </script>
-
-    
-    <script src="/js/nametag.js" type="text/javascript"></script>
-    <script src="/js/spawn-in-circle.js"></script>
-
-    <!--Poition styling(To be removed before launch)-->
     <style>
-      /* Styling for the position display */
       #player-position {
         position: fixed;
         bottom: 10px;
@@ -82,113 +30,42 @@
       }
     </style>
 
-<a-asset-item id="skyModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/sky/scene.gltf"></a-asset-item>
-<a-asset-item id="forestModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/forest/scene.gltf"></a-asset-item>
-<a-asset-item id="farmModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/farm.gltf"></a-asset-item>
-<a-asset-item id="redHoodModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/red_hood.glb"></a-asset-item>
-<a-asset-item id="motherModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/mother.glb"></a-asset-item>
-<a-asset-item id="wolfModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/wolf/scene.gltf"></a-asset-item>
+    <a-asset-item id="skyModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/sky/scene.gltf"></a-asset-item>
+    <a-asset-item id="forestModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/forest/scene.gltf"></a-asset-item>
+    <a-asset-item id="farmModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/farm.gltf"></a-asset-item>
+    <a-asset-item id="redHoodModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/red_hood.glb"></a-asset-item>
+    <a-asset-item id="motherModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/little%20red%20riding/mother.glb"></a-asset-item>
+    <a-asset-item id="wolfModel" src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/models/wolf/scene.gltf"></a-asset-item>
 
   </head>
   <body>
-    
-    <!-- A-Frame Scene -->
     <div id="player-position">Position: x: 0, y: 0, z: 0</div>
-    <a-scene id="scene" 
-      fog="type: exponential; color: #cccccc; density: 0.07"
+    <a-scene id="scene"
       joystick
       physics="debug: false; gravity: -9.8"
-      networked-scene="room: basic; debug: false; adapter: easyrtc;"
     >
-      
       <a-sound
-        id="backgroundSound"  
-        src="https://raw.githubusercontent.com/somerandim/vr-ssssstory/main/assets/audio/scene1.mp3" 
-        autoplay="true" 
-        loop="false" 
-        volume="50" 
+        id="backgroundSound"
+        src="assets\audio\scene1.mp3"
+        autoplay="true"
+        loop="false"
+        volume="50"
       ></a-sound>
-      
-     
-
-      <!-- Forest Environment -->
-      <a-entity gltf-model="#skyModel" scale="1 1 1" position="0 0 0"></a-entity>
-
-      <a-entity 
-        gltf-model="#forestModel" 
-        position="0 -5 0" 
-        scale="0.6 0.6 0.6">
-      </a-entity>
-
-      <a-entity 
-        gltf-model="#farmModel" 
-        position="4 -22 -7.29"
-        rotation="0 270 0"  
-        scale="0.15 0.15 0.15">
-      </a-entity>
-      
-      <a-entity 
-        gltf-model="#redHoodModel" 
-        position="-5.4 -21.7 -9.92"
-        rotation="0 23 0" 
-        scale="0.25 0.25 0.25">
-      </a-entity>
-
-      <a-entity 
-        gltf-model="#motherModel" 
-        position="-4.51 -19.7 -8.36" 
-        rotation="0 220 0" 
-        scale="2 2 2">
-      </a-entity>
-
-      <a-entity 
-        id="model" 
-        gltf-model="#wolfModel" 
-        position="1.8 -22 41.45"
-        rotation="0 190 0"  
-        scale="0.8 0.8 0.8"
-        animation-mixer="clip: metarig|Idle;loop: repeat">
-      </a-entity>
 
       <a-entity
-        id="camera"
-        camera
+        id="rig"
+        kinematic-body="radius:0.4"
+        wasd-controls="acceleration: 200"
         look-controls
-        wasd-controls="acceleration: 75"
-        position="0 1.4 0"
-        visible="true"
+        position="-4.80 -4.50 46.88"
       >
         <a-entity
-          class="controller"
-          id="rhand"
-          mixin="physics-hands"
-          networked-hand-controls="hand: right"
-          raycaster="objects: .hittable; far: 0.4"
-          line="color: #000000"
-          oculus-thumbstick-controls
+          id="camera"
+          camera
+          position="0 1.4 0"
+          visible="true"
         ></a-entity>
 
-        <a-entity
-          class="controller"
-          id="lhand"
-          mixin="physics-hands"
-          networked-hand-controls="hand: left"
-          raycaster="objects: .hittable; far: 0.4"
-          line="color: #000000"
-          oculus-thumbstick-controls
-          menu-visibility
-        ></a-entity>
-      </a-entity>
-
-      <!-- Camera -->
-      <a-entity
-        id="camera"
-        camera
-        look-controls
-        wasd-controls="acceleration: 75"
-        position="0 1.4 0"
-        visible="true"
-      >
         <!-- Right hand controller -->
         <a-entity
           class="controller"
@@ -210,69 +87,22 @@
           line="color: #000000"
           oculus-thumbstick-controls
           menu-visibility
-        >
-          <!-- Menu pane -->
-          <a-plane
-            id="menu"
-            position="0 0.15 0.05"
-            rotation="-90 0 0"
-            width="0.5"
-            height="0.1"
-            color="#cccccc"
-            material="opacity:1; shader: flat"
-            visible="false"
-          >
-            <a-text
-              id="arrow_left"
-              value="<"
-              position="-0.24 0.01 0"
-              color="#373737"
-              scale="0.5 0.9 1"
-            ></a-text>
-            <a-text
-              id="arrow_right"
-              value=">"
-              position="0.16 0.01 0"
-              color="#373737"
-              scale="0.5 0.9 1"
-            ></a-text>
-            <a-entity id="asset_background">
-              <a-plane
-                position="0 0 0.001"
-                width="0.07"
-                height="0.07"
-                material="opacity:0.3; shader: flat"
-                color="#E0DF4B"
-              ></a-plane>
-              <a-plane
-                position="0.12 0 0.001"
-                width="0.07"
-                height="0.07"
-                color="#373737"
-              ></a-plane>
-              <a-plane
-                position="-0.12 0 0.001"
-                width="0.07"
-                height="0.07"
-                color="#373737"
-              ></a-plane>
-            </a-entity>
-
-            <a-entity id="assets_menu"> </a-entity>
-          </a-plane>
-        </a-entity>
+        ></a-entity>
       </a-entity>
-      
-      <a-light type="directional" position="10 100 10" intensity="0.5" color="#ffffff"></a-light>
-      <a-light type="ambient" intensity="0.5" color="#ffffff"></a-light>
-  
+
+      <a-entity gltf-model="#skyModel" scale="1 1 1" position="0 0 0"></a-entity>
+      <a-entity gltf-model="#forestModel" position="0 -5 0" scale="0.6 0.6 0.6"></a-entity>
+      <a-entity gltf-model="#farmModel" position="4 -22 -7.29" rotation="0 270 0" scale="0.15 0.15 0.15"></a-entity>
+      <a-entity gltf-model="#redHoodModel" position="-5.4 -21.7 -9.92" rotation="0 23 0" scale="0.25 0.25 0.25"></a-entity>
+      <a-entity gltf-model="#motherModel" position="-4.51 -19.7 -8.36" rotation="0 220 0" scale="2 2 2"></a-entity>
+      <a-entity id="model" gltf-model="#wolfModel" position="1.8 -22 41.45" rotation="0 190 0" scale="0.8 0.8 0.8"></a-entity>
     </a-scene>
-    <!-- <script>
+
+    <script>
       document.addEventListener('DOMContentLoaded', () => {
         const camera = document.querySelector('#camera');
         const positionDisplay = document.querySelector('#player-position');
 
-        // Update position display
         setInterval(() => {
           const worldPos = new THREE.Vector3();
           camera.object3D.getWorldPosition(worldPos);
@@ -281,81 +111,7 @@
           const z = worldPos.z.toFixed(2);
           positionDisplay.textContent = `Position: x: ${x}, y: ${y}, z: ${z}`;
         }, 100);
-
-        // Initial camera setup
-        const initialPosition = { x: -97.26, y: 32.39, z: 7.8 };
-        const initialRotation = { x: -45.84, y: -76.78, z: 0 };
-        camera.setAttribute('position', `${initialPosition.x} ${initialPosition.y} ${initialPosition.z}`);
-        camera.setAttribute('rotation', `${initialRotation.x} ${initialRotation.y} ${initialRotation.z}`);
-
-        // Adjust look-controls rotation
-        const lookControls = camera.components['look-controls'];
-        if (lookControls) {
-          lookControls.pitchObject.rotation.x = THREE.MathUtils.degToRad(initialRotation.x);
-          lookControls.yawObject.rotation.y = THREE.MathUtils.degToRad(initialRotation.y);
-        }
-
-        // Fog fade out
-        const scene = document.querySelector('#scene');
-        let fogDensity = 0.07;
-        const fadeDuration = 3000;
-        const interval = 30;
-        const step = fogDensity / (fadeDuration / interval);
-
-        const fadeFog = setInterval(() => {
-          fogDensity -= step; 
-          if (fogDensity <= 0) {
-            fogDensity = 0;
-            clearInterval(fadeFog);
-          }
-          scene.setAttribute('fog', `type: exponential; color: #cccccc; density: ${fogDensity}`);
-        }, interval);
-
-        // Function to smoothly transition camera position and rotation
-        const smoothTransition = (newPosition, newRotation, duration) => {
-          // Disable look-controls during transition
-          camera.setAttribute('look-controls', 'enabled: false');
-
-          // Animate position
-          camera.setAttribute('animation__position', {
-            property: 'position',
-            to: `${newPosition.x} ${newPosition.y} ${newPosition.z}`,
-            dur: duration,
-            easing: 'easeInOutQuad'
-          });
-
-          // Animate rotation
-          camera.setAttribute('animation__rotation', {
-            property: 'rotation',
-            to: `${newRotation.x} ${newRotation.y} ${newRotation.z}`,
-            dur: duration,
-            easing: 'easeInOutQuad'
-          });
-
-          // Re-enable look-controls after animation finishes
-          setTimeout(() => {
-            const lookControls = camera.components['look-controls'];
-            if (lookControls) {
-              lookControls.pitchObject.rotation.x = THREE.MathUtils.degToRad(newRotation.x);
-              lookControls.yawObject.rotation.y = THREE.MathUtils.degToRad(newRotation.y);
-            }
-            camera.setAttribute('look-controls', 'enabled: true');
-          }, duration);
-        };
-
-        // Schedule transitions
-        setTimeout(() => {
-          smoothTransition({ x: -14.3, y: -19.49, z: -0.65 }, { x: 3.44, y: -60.62, z: 0 }, 6000);
-        }, 2000);
-
-        setTimeout(() => {
-          smoothTransition({ x: 0.93, y: -19.7, z: 44.11 }, { x: -6.53, y: -3.9, z: 0 }, 3000);
-        }, 27000);
-
-        setTimeout(() => {
-          smoothTransition({ x: -1.74, y: -19.95, z: 35.41 }, { x: -7.33, y: -159.86, z: 0 }, 3000);
-        }, 32000);
       });
-    </script> -->
+    </script>
   </body>
 </html>
